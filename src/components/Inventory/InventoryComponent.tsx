@@ -1,7 +1,7 @@
-// InventoryComponent.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { InventoryItem } from '../types/inventoryData';
+import { InventoryItem } from '../../types/inventoryData';
+import { InventoryContainer } from './InventoryStyles';
 
 interface InventoryComponentProps {
   deviceId: string;
@@ -22,7 +22,7 @@ const InventoryComponent: React.FC<InventoryComponentProps> = ({ deviceId }) => 
   }, [deviceId]);
 
   return (
-    <div>
+    <InventoryContainer>
       <h2>Inventory</h2>
       {Object.entries(inventory).map(([itemName, quantity], index) => (
         <div key={index}>
@@ -30,7 +30,7 @@ const InventoryComponent: React.FC<InventoryComponentProps> = ({ deviceId }) => 
           <p>Quantity: {quantity}</p>
         </div>
       ))}
-    </div>
+    </InventoryContainer>
   );
 };
 

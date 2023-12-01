@@ -1,7 +1,7 @@
-// SensorDataComponent.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { SensorData } from '../types/SensorData';
+import { SensorData } from '../../types/SensorData';
+import { SensorDataContainer } from './SensorDataStyles';
 
 interface SensorDataComponentProps {
   deviceId: string;
@@ -22,13 +22,13 @@ const SensorDataComponent: React.FC<SensorDataComponentProps> = ({ deviceId }) =
   }, [deviceId]);
 
   return (
-    <div>
+    <SensorDataContainer>
       <h2>Sensor Data</h2>
       <p>Temperature: {sensorData.temperature ? `${sensorData.temperature}°C` : 'N/A'}</p>
       <p>Pressure: {sensorData.pressure ? `${sensorData.pressure} hPa` : 'N/A'}</p>
       <p>Humidity: {sensorData.humidity ? `${sensorData.humidity}%` : 'N/A'}</p>
       <p>Gas: {sensorData.gas ? `${sensorData.gas}Ω` : 'N/A'}</p>
-    </div>
+    </SensorDataContainer>
   );
 };
 
