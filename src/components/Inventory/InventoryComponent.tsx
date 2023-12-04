@@ -12,13 +12,19 @@ const InventoryComponent: React.FC<InventoryComponentProps> = ({ deviceId }) => 
   const baseUrl = 'http://localhost:3001/api';
 
   useEffect(() => {
-    axios.get(`${baseUrl}/inventory/${deviceId}`)
-      .then(response => {
-        console.log("Fetched inventory data:", response.data);
-        const transformedInventory = transformInventoryData(response.data);
-        setInventory(transformedInventory);
-      })
-      .catch(error => console.error('Error fetching inventory data:', error));
+    const fetchData = () => {
+      axios.get(`${baseUrl}/inventory/${deviceId}`)
+        .then(response => {
+          const transformedInventory = transformInventoryData(response.data);
+          setInventory(transformedInventory);
+        })
+        .catch(error => console.error('Error fetching inventory data:', error));
+    };
+    
+    fetchData();
+    const interval = setInterval(fetchData, 60000);
+    
+    return () => clearInterval(interval);
   }, [deviceId]);
 
   return (

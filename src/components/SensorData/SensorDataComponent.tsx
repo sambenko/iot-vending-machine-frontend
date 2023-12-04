@@ -11,14 +11,22 @@ const SensorDataComponent: React.FC<SensorDataComponentProps> = ({ deviceId }) =
   const [sensorData, setSensorData] = useState<SensorData>({});
   const baseUrl = 'http://localhost:3001/api';
 
+  
+
   useEffect(() => {
-    axios.get(`${baseUrl}/sensor/${deviceId}`)
-      .then(response => {
-        console.log("Fetched sensor data:", response.data);
-        const data = transformSensorData(response.data);
-        setSensorData(data);
-      })
-      .catch(error => console.error('Error fetching sensor data:', error));
+    const fetchData = () => {
+      axios.get(`${baseUrl}/sensor/${deviceId}`)
+        .then(response => {
+          const data = transformSensorData(response.data);
+          setSensorData(data);
+        })
+        .catch(error => console.error('Error fetching sensor data:', error));
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 60000);
+
+    return () => clearInterval(interval);
   }, [deviceId]);
 
   return (
