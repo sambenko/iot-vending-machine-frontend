@@ -16,7 +16,7 @@ export const CardContentStyled = styled(CardContent)({
 });
 
 export const CardMediaStyled = styled(CardMedia)({
-  height: 300,
+  height: 400,
   width: '100%',
 });
 
